@@ -1,0 +1,22 @@
+# Credentials
+kaggle.json
+.env
+
+# Models and experiment output
+*.pt
+*.onnx
+runs/
+wandb/
+weights/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
