@@ -8,7 +8,6 @@ from numpy.typing import NDArray
 
 from object_detection import Detector, Settings
 
-
 detector = Detector(Settings.from_env())
 
 

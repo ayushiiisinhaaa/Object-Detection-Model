@@ -17,7 +17,7 @@ class Settings:
     image_size: int = 640
 
     @classmethod
-    def from_env(cls) -> "Settings":
+    def from_env(cls) -> Settings:
         defaults = cls()
         settings = cls(
             model_path=os.getenv("MODEL_PATH", defaults.model_path),

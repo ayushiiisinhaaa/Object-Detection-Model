@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from typing import Annotated
 
 import cv2
 import numpy as np
@@ -10,7 +11,6 @@ from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
 from pydantic import BaseModel, Field
 
 from object_detection import Detector, Settings
-
 
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 ALLOWED_CONTENT_TYPES = {"image/jpeg", "image/png", "image/webp"}
@@ -50,8 +50,8 @@ def health() -> dict[str, str]:
 
 @app.post("/predict", response_model=PredictionResponse)
 async def predict(
-    file: UploadFile = File(...),
-    detector: Detector = Depends(get_detector),
+    file: Annotated[UploadFile, File()],
+    detector: Annotated[Detector, Depends(get_detector)],
 ) -> dict[str, object]:
     if file.content_type not in ALLOWED_CONTENT_TYPES:
         raise HTTPException(status_code=415, detail="Supported formats: JPEG, PNG, WebP")

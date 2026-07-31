@@ -10,7 +10,6 @@ import cv2
 
 from object_detection import Detector, Settings
 
-
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
 
 

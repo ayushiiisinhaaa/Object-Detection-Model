@@ -12,4 +12,8 @@ def test_invalid_settings_raise(field: str, value: float) -> None:
     values = {"confidence": 0.25, "iou": 0.70, "image_size": 640}
     values[field] = value
     with pytest.raises(ValueError):
-        Settings(confidence=values["confidence"], iou=values["iou"], image_size=int(values["image_size"])).validate()
+        Settings(
+            confidence=values["confidence"],
+            iou=values["iou"],
+            image_size=int(values["image_size"]),
+        ).validate()

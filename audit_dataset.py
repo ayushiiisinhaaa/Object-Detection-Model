@@ -9,7 +9,6 @@ from pathlib import Path
 
 import yaml
 
-
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
 
 
@@ -27,7 +26,8 @@ def resolve_split(root: Path, value: str | list[str]) -> list[Path]:
         if path.is_dir():
             images.extend(item for item in path.rglob("*") if item.suffix.lower() in IMAGE_SUFFIXES)
         elif path.is_file() and path.suffix == ".txt":
-            images.extend((root / line.strip()).resolve() for line in path.read_text().splitlines() if line.strip())
+            lines = path.read_text(encoding="utf-8").splitlines()
+            images.extend((root / line.strip()).resolve() for line in lines if line.strip())
         else:
             raise FileNotFoundError(f"Split path not found: {path}")
     return sorted(images)
@@ -78,7 +78,9 @@ def main() -> None:
             if not label.is_file():
                 errors.append(f"Missing label: {label}")
                 continue
-            for line_number, line in enumerate(label.read_text().splitlines(), start=1):
+            for line_number, line in enumerate(
+                label.read_text(encoding="utf-8").splitlines(), start=1
+            ):
                 fields = line.split()
                 try:
                     class_id = int(fields[0])
