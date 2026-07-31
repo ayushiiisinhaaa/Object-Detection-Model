@@ -1,0 +1,12 @@
+# Copy to configs/dataset.yaml and update paths after preparing the dataset.
+path: ../data
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: buffalo
+  1: elephant
+  2: rhino
+  3: zebra
+  4: miner

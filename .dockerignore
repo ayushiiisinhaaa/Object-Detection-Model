@@ -1,0 +1,10 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+*.pt
+data
+runs
+tests
+training_experiment.ipynb

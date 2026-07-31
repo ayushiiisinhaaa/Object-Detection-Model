@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 
 from ultralytics import YOLO
@@ -30,10 +31,24 @@ def main() -> None:
         project=args.project,
         plots=True,
     )
-    print(f"mAP@0.5: {metrics.box.map50:.4f}")
-    print(f"mAP@0.5:0.95: {metrics.box.map:.4f}")
-    print(f"precision: {metrics.box.mp:.4f}")
-    print(f"recall: {metrics.box.mr:.4f}")
+    summary = {
+        "model": args.model,
+        "data": str(args.data),
+        "device": args.device,
+        "image_size": args.imgsz,
+        "map50": round(float(metrics.box.map50), 6),
+        "map50_95": round(float(metrics.box.map), 6),
+        "precision": round(float(metrics.box.mp), 6),
+        "recall": round(float(metrics.box.mr), 6),
+        "speed_ms": {key: round(float(value), 3) for key, value in metrics.speed.items()},
+        "per_class_map50_95": {
+            str(metrics.names[index]): round(float(value), 6)
+            for index, value in enumerate(metrics.box.maps)
+        },
+    }
+    output_path = Path(metrics.save_dir) / "metrics.json"
+    output_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    print(json.dumps(summary, indent=2))
     print(f"artifacts: {metrics.save_dir}")
 
 
