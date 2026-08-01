@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="YOLOv8 object detection demo" />
+    <title>YOLOv8 Object Detector</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/">VISION<span>LAB</span></a>
+      <a class="github" href="https://github.com/ayushiiisinhaaa/Object-Detection-Model">Source code</a>
+    </header>
+    <main>
+      <section class="intro">
+        <p class="eyebrow">COCO-pretrained YOLOv8n</p>
+        <h1>Object detection,<br />from image to evidence.</h1>
+        <p class="summary">Upload a JPEG, PNG, or WebP image to receive bounding boxes, confidence scores, and measured inference latency.</p>
+      </section>
+      <section class="workspace" aria-label="Detection workspace">
+        <div class="viewer" id="drop-zone">
+          <canvas id="canvas" hidden></canvas>
+          <div class="empty" id="empty-state">
+            <div class="upload-icon">+</div>
+            <strong>Drop an image here</strong>
+            <span>or choose a file up to 10 MB</span>
+          </div>
+          <div class="loading" id="loading" hidden>Running inference...</div>
+        </div>
+        <aside>
+          <div class="controls">
+            <input id="file-input" type="file" accept="image/jpeg,image/png,image/webp" hidden />
+            <button id="upload-button" type="button">Choose image</button>
+            <p id="status" role="status">Ready for an image</p>
+          </div>
+          <div class="metrics">
+            <div><span>Objects</span><strong id="object-count">-</strong></div>
+            <div><span>Inference</span><strong id="latency">-</strong></div>
+            <div><span>Resolution</span><strong id="resolution">-</strong></div>
+          </div>
+          <div class="results">
+            <h2>Detections</h2>
+            <ol id="detection-list"><li class="placeholder">Results appear after inference.</li></ol>
+          </div>
+        </aside>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

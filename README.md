@@ -3,6 +3,7 @@
 [![CI](https://github.com/ayushiiisinhaaa/Object-Detection-Model/actions/workflows/ci.yml/badge.svg)](https://github.com/ayushiiisinhaaa/Object-Detection-Model/actions/workflows/ci.yml)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-3776AB.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2ea44f.svg)](LICENSE)
+[![Live demo](https://img.shields.io/badge/live_demo-Vercel-000.svg)](https://object-detection-model-navy.vercel.app)
 
 A modular YOLOv8 inference system with a Gradio interface, FastAPI service,
 batch CLI, dataset auditing, reproducible training, evaluation, tests, and Docker
@@ -10,6 +11,8 @@ support. It currently serves the official COCO-pretrained YOLOv8n baseline.
 
 > **Project status:** custom training is not complete. No custom weights or
 > custom-dataset metrics are claimed in this repository.
+
+**Live application:** [object-detection-model-navy.vercel.app](https://object-detection-model-navy.vercel.app)
 
 ## Model status
 
@@ -138,6 +141,22 @@ docker build -t object-detection-api .
 docker run --rm -p 8000:8000 object-detection-api
 ```
 
+## Vercel deployment
+
+The production deployment uses a compact ONNX Runtime function because the full
+PyTorch/Ultralytics environment is larger than Vercel's serverless function
+limit. The browser interface calls `vercel_api/index.py`, which applies the same
+YOLOv8 preprocessing, confidence filtering, class-aware NMS, and JSON contract.
+The local Gradio, training, and evaluation workflows continue to use Ultralytics.
+
+```bash
+npx vercel --prod
+```
+
+The committed `vercel_api/yolov8n.onnx` model is the 12.8 MB YOLOv8n export from
+Kalray's Hugging Face repository. Its verified SHA-256 is
+`65158dad735be799c2466fa15e260c09558080bd530b42a8d0c3d1b419afd8b5`.
+
 ## Repository layout
 
 ```text
@@ -146,6 +165,8 @@ tests/                      unit and API contract tests
 configs/                    versioned dataset configuration template
 app.py                      Gradio UI
 api.py                      FastAPI service
+public/                     production browser interface
+vercel_api/                 compact ONNX inference function
 predict.py                  image and directory inference CLI
 audit_dataset.py            label and split integrity checks
 train.py                    deterministic training entry point

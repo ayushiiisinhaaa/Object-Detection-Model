@@ -3,7 +3,8 @@
 ## Current model
 
 The application currently loads the official `yolov8n.pt` checkpoint pretrained
-on COCO. It is a deployment baseline, not a repository-trained model.
+on COCO. The Vercel runtime uses an ONNX export of YOLOv8n for compatibility with
+serverless function limits. It is a deployment baseline, not a repository-trained model.
 
 ## Intended use
 

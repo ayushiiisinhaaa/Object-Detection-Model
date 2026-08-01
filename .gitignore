@@ -5,6 +5,7 @@ kaggle.json
 # Models and experiment output
 *.pt
 *.onnx
+!vercel_api/yolov8n.onnx
 runs/
 wandb/
 weights/
@@ -26,3 +27,5 @@ venv/
 .vscode/
 .DS_Store
 Thumbs.db
+
+.vercel

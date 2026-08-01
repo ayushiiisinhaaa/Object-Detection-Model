@@ -44,11 +44,13 @@ app = FastAPI(
 
 
 @app.get("/health")
+@app.get("/api/health", include_in_schema=False)
 def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
 @app.post("/predict", response_model=PredictionResponse)
+@app.post("/api/predict", response_model=PredictionResponse, include_in_schema=False)
 async def predict(
     file: Annotated[UploadFile, File()],
     detector: Annotated[Detector, Depends(get_detector)],
